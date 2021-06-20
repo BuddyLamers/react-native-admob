@@ -31,7 +31,7 @@
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
-{   
+{
     if ((self = [super initWithFrame:frame])) {
         super.backgroundColor = [UIColor clearColor];
 
@@ -43,7 +43,7 @@
         _bannerView.adSizeDelegate = self;
         _bannerView.appEventDelegate = self;
         _bannerView.rootViewController = rootViewController;
-        
+
         [self addSubview:_bannerView];
     }
 
@@ -72,18 +72,18 @@
     Prebid.shared.prebidServerHost = PrebidHostAppnexus;
 
     self.bannerUnit = [[BannerAdUnit alloc] initWithConfigId:_prebidUnitConfigId size:CGSizeMake(300, 250)];
-    
+
     PBBannerAdUnitParameters* parameters = [[PBBannerAdUnitParameters alloc] init];
     parameters.api = @[PBApi.MRAID_2];
     self.bannerUnit.parameters = parameters;
-    
+
     [self.bannerUnit fetchDemandWithAdObject:request completion:^(enum ResultCode result) {
         NSLog(@"Prebid demand result %ld", (long)result);
         dispatch_async(dispatch_get_main_queue(), ^{
             [_bannerView loadRequest:request];
         });
     }];
-    
+
 //    [_bannerView loadRequest:request];
 }
 
@@ -93,7 +93,7 @@
     [adSizes enumerateObjectsUsingBlock:^(id jsonValue, NSUInteger idx, __unused BOOL *stop) {
         GADAdSize adSize = [RCTConvert GADAdSize:jsonValue];
         if (GADAdSizeEqualToSize(adSize, kGADAdSizeInvalid)) {
-            RCTLogWarn(@"Invalid adSize %@", jsonValue);
+            RCTLogWarn(@"Invalid adSize TEST %@", jsonValue);
         } else {
             [validAdSizes addObject:NSValueFromGADAdSize(adSize)];
         }
